@@ -5,6 +5,7 @@
   --muted: #d9d1ef;
   --accent: #ff6fa2;
   --accent-2: #9f7bff;
+  --gold: #ffd785;
   --shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
 }
 
@@ -16,7 +17,9 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: 'Montserrat', system-ui, sans-serif;
-  background: radial-gradient(circle at top, #1b1335, var(--bg) 45%);
+  background:
+    radial-gradient(circle at 50% 15%, rgba(255, 215, 133, 0.15), transparent 26%),
+    radial-gradient(circle at top, #1b1335, var(--bg) 45%);
   color: var(--text);
   line-height: 1.65;
   position: relative;
@@ -30,7 +33,7 @@ body {
   border-radius: 50%;
   filter: blur(80px);
   opacity: 0.45;
-  z-index: -1;
+  z-index: -2;
 }
 
 .bg-glow-one {
@@ -43,6 +46,60 @@ body {
   background: #ff7fb0;
   right: -100px;
   bottom: 60px;
+}
+
+.rangoli {
+  position: fixed;
+  width: 240px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  opacity: 0.18;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at center, transparent 0 26%, rgba(255, 215, 133, 0.75) 27% 30%, transparent 31%),
+    repeating-conic-gradient(from 10deg, rgba(255, 111, 162, 0.95) 0deg 12deg, rgba(159, 123, 255, 0.9) 12deg 24deg);
+  -webkit-mask: radial-gradient(circle at center, transparent 0 26%, #000 27% 100%);
+}
+
+.rangoli-left {
+  left: -100px;
+  top: 220px;
+}
+
+.rangoli-right {
+  right: -100px;
+  bottom: 140px;
+}
+
+.sparkles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.sparkles span {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, #fff 0%, rgba(255, 255, 255, 0.2) 70%);
+  border-radius: 50%;
+  animation: twinkle 3.5s ease-in-out infinite;
+}
+
+.sparkles span:nth-child(1) { top: 14%; left: 10%; animation-delay: 0.3s; }
+.sparkles span:nth-child(2) { top: 24%; left: 82%; animation-delay: 1.2s; }
+.sparkles span:nth-child(3) { top: 42%; left: 17%; animation-delay: 0.7s; }
+.sparkles span:nth-child(4) { top: 58%; left: 88%; animation-delay: 2.1s; }
+.sparkles span:nth-child(5) { top: 65%; left: 28%; animation-delay: 1.6s; }
+.sparkles span:nth-child(6) { top: 74%; left: 72%; animation-delay: 0.9s; }
+.sparkles span:nth-child(7) { top: 84%; left: 13%; animation-delay: 2.4s; }
+.sparkles span:nth-child(8) { top: 12%; left: 55%; animation-delay: 1.9s; }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.7); }
+  50% { opacity: 1; transform: scale(1.2); }
 }
 
 .hero,
@@ -119,7 +176,8 @@ main {
 
 .journey-card,
 .call-section,
-.letter {
+.letter,
+.actions {
   background: var(--bg-card);
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 20px;
@@ -129,8 +187,17 @@ main {
 }
 
 .journey-card,
-.call-section {
+.call-section,
+.actions {
   margin-bottom: 1.2rem;
+}
+
+.devotional-banner {
+  text-align: center;
+  border-color: rgba(255, 215, 133, 0.45);
+  background: linear-gradient(120deg, rgba(255, 215, 133, 0.15), rgba(255, 111, 162, 0.08));
+  font-weight: 700;
+  letter-spacing: 0.03em;
 }
 
 .timeline {
@@ -205,6 +272,40 @@ main {
   }
 }
 
+.action-grid {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.action-btn {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+}
+
+.action-btn.done {
+  border-color: rgba(255, 215, 133, 0.9);
+  background: rgba(255, 215, 133, 0.15);
+  text-decoration: line-through;
+}
+
+.action-status {
+  margin-bottom: 0;
+  margin-top: 0.9rem;
+  color: #ffe8b6;
+  font-weight: 700;
+}
+
 .signature {
   color: #ffd9eb;
   font-weight: 700;
@@ -220,7 +321,12 @@ footer {
 @media (max-width: 640px) {
   .journey-card,
   .call-section,
-  .letter {
+  .letter,
+  .actions {
     padding: 1.2rem;
+  }
+
+  .rangoli {
+    width: 180px;
   }
 }
